@@ -1,7 +1,10 @@
 package com.hanabi.web.servlet;
 
+import java.sql.DriverManager;
+import java.sql.Connection;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -24,7 +27,29 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//2.接受用户名和密码
+//		response.setContentType("text/html");
+//		PrintWriter out = response.getWriter();
+//		out.println("<html>");
+//		out.println("<head>");
+//		out.println("<title>Hello World!</title>");
+//		out.println("</head>");
+//		out.println("<body>");
+//		out.println("<h1>Hello World!</h1>");
+//		out.println("</body>");
+//		out.println("</html>");
+
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url = "jdbc:mysql://localhost:3306/test";
+			String username = "root";
+			String password = "ck2351158";
+			Connection con = DriverManager.getConnection(url, username, password);
+			Statement stat = con.createStatement();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+//		2.接受用户名和密码
 		Map map = request.getParameterMap();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
